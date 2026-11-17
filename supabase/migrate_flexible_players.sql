@@ -76,7 +76,8 @@ begin
  elsif p_action='start_vote' then
   if r.phase<>'hint' then raise exception '투표를 시작할 수 없습니다'; end if;
   select count(*) into v_count from hints where room_id=r.id and game_no=r.game_no and round_no=r.round_no;
-  if v_count<>8 then raise exception '모든 힌트 제출 후 투표할 수 있습니다'; end if;
+  select count(*) into v_player_count from members where room_id=r.id and role='player';
+  if v_count<>v_player_count then raise exception '모든 힌트 제출 후 투표할 수 있습니다'; end if;
   update rooms set phase='vote' where id=r.id;
  elsif p_action='vote' then
   if me.role<>'player' or r.phase<>'vote' then raise exception '투표 단계가 아닙니다'; end if;

@@ -3,3 +3,6 @@
 .pointbox{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#242047;border:1px solid #574e90;border-radius:12px;padding:16px;margin:18px 0}.pointbox>div{display:flex;flex-direction:column;gap:6px}.pointbox strong{font-size:26px;color:#d3baff}.pointbox button{background:#9164ee;border:0;border-radius:9px;padding:11px 15px;color:#fff;font-weight:700;white-space:nowrap}
 
 .limitbox{margin:18px 0;padding:14px;border:1px solid #343a5c;border-radius:12px}.limitrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.limitrow select{max-width:130px}.limitrow small{font-size:12px}
+
+/* V3.1 MC panel: visible in the sidebar in all phases */
+.mccontrols{display:grid;gap:12px;margin-top:16px;padding-top:4px}.mccontrols h3{margin:0}.mccontrols h3 small{font-size:10px;color:#9aa5bf}.mccontrols select{width:100%;min-height:42px;background:#11172c;color:#fff;border:1px solid #47516d;border-radius:8px;padding:8px}.mccontrols .pointbox{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}.mccontrols .pointbox button{min-height:38px}.mccontrols small{display:block}

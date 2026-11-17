@@ -1,3 +1,32 @@
+# LIAR GAME V3.1 — 배포 및 수정 안내
+
+## 이번 수정 사항
+- **MC 운영 패널을 오른쪽 스코어보드 하단에 항상 표시**합니다. 대기실에는 참가자 정원(2~8명), 게임 진행 중에는 승점 및 +1점 버튼이 보입니다. +1점은 힌트 라운드에서만 활성화됩니다.
+- 화면 우측 상단에 **V3.1 · FLEX + POINTS** 표시를 추가했습니다. 이 표시가 없으면 Vercel이 구버전 파일을 서비스 중인 것입니다.
+- V3 SQL에 남아 있던 **8명 고정 투표 시작 검사**를 실제 참가자 수 기준으로 수정했습니다.
+- 1명 테스트 시작, MC 자유 라운드 진행, 기존 방의 누적 점수 유지.
+
+## 이미 V2/V3 Supabase와 Vercel을 사용 중인 경우
+1. Supabase SQL Editor에서 **`supabase/upgrade_v3_1.sql` 전체**를 실행하세요. `schema.sql`을 다시 실행하지 마세요.
+2. ZIP 안의 **`liar-game` 폴더 내부 전체 파일**을 GitHub 저장소 최상위에 업로드하세요. 특히 `app/page.tsx`, `app/style.css`가 교체됐는지 확인하세요. `liar-game/liar-game/app` 형태로 중첩 업로드하면 Vercel이 이전 코드를 빌드할 수 있습니다.
+3. GitHub에서 Commit 후 Vercel → Deployments에서 **최신 커밋의 Production 배포**가 Ready인지 확인하세요. 배포된 사이트 오른쪽 상단에 `V3.1 · FLEX + POINTS`가 보여야 합니다.
+4. Ctrl+Shift+R로 새로고침하고 새 방을 생성해 MC 패널을 확인하세요.
+
+## 신규 Supabase 프로젝트인 경우
+`supabase/schema.sql`만 실행합니다. 기존 프로젝트에는 사용하지 마세요.
+
+## 게임 규칙
+- MC 최대 2명, 참가자 정원은 2~8명 선택 가능, 테스트 시작은 참가자 1명부터 가능
+- 한 게임에 라이어 1명, 일반 참가자에게만 키워드 공개
+- 힌트 라운드에서 MC가 승점 +1, 다음 라운드 또는 투표 시작을 자유롭게 결정
+- 1인 테스트는 투표 없이 정답 공개, 승점 0점
+- 누적 승점은 **동일한 방**에서만 유지, 새 방은 새로운 스코어보드
+
+## 오류 진단
+- V3.1 표시 없음: 구버전 배포 또는 GitHub 업로드 경로 오류
+- V3.1 표시 있으나 `player_limit` 누락 오류: `upgrade_v3_1.sql` 미적용
+- 버튼은 있으나 클릭 시 오류: Supabase SQL Editor 실행 결과와 브라우저 Network → `game_action` Response 확인
+
 # LIAR GAME — Vercel + Supabase
 
 1–8 players + up to 2 MCs. Each game selects one random liar. Non-liars see the keyword; MCs see the keyword and liar. Every player submits one hint per round, with hints revealed together. MCs control rounds and voting. Correct voters gain the MC-adjustable point award, accumulated across games.
